@@ -19,3 +19,9 @@ Put all tickers you want line by line in `tickers.txt` file
 ```sh
 $ ruby crawling.rb 
 ```
+
+Or specific tickers by arguments
+
+```sh
+$ ruby crawling.rb B3SA3 BBAS3
+```

@@ -3,10 +3,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-tickers = File.read("tickers.txt").split
-
-tickers.each do |ticker| 
-
+def crawling(ticker)
     site = Nokogiri::HTML(URI.open("https://statusinvest.com.br/acoes/#{ticker}"))
 
     name = site.xpath('//*[@id="main-header"]/div[2]/div/div[1]/h1/small')
@@ -24,4 +21,18 @@ tickers.each do |ticker|
     puts "Preço Teto #{dy_value_f / 0.06}"
 
     puts "\n"
+end
+
+if ARGV[0]
+    ARGV.each do|ticker|
+        puts "Crawling from Argument: #{ticker}"
+        crawling(ticker)
+    end
+else
+    tickers = File.read("tickers.txt").split
+
+    tickers.each do |ticker| 
+        puts "Crawling from tickers.txt: #{ticker}" 
+        crawling(ticker)
+    end
 end
