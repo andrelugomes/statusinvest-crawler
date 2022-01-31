@@ -82,7 +82,7 @@ if options[:export]
         row.push fii.ticker, fii.name, fii.value, fii.vp, fii.pvp, fii.dy, fii.dy_value
     end
 
-    File.read("fiis.txt").split.each_with_index do |ticker, index| 
+    File.read("radar_fiis.txt").split.each_with_index do |ticker, index| 
         row = sheet2.row(index+1) #line number
         fii = crawling(ticker)
         row.push fii.ticker, fii.name, fii.value, fii.vp, fii.pvp, fii.dy, fii.dy_value
