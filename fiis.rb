@@ -48,6 +48,8 @@ def crawling(ticker)
     fii = Fii.new(ticker, name, value, dy, dy_value, vp_cota, p_vp)
     puts fii.print
     puts fii.print_max_price
+    puts fii.print_earning_p
+    puts fii.print_earning_vp
 
     puts "\n"
     fii
