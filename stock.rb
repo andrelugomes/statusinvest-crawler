@@ -4,7 +4,8 @@ require 'open-uri'
 class Stock
 
     def crawling(ticker)
-        site = Nokogiri::HTML(URI.open("https://statusinvest.com.br/acoes/#{ticker}"))
+        url = "https://statusinvest.com.br/acoes/#{ticker}"
+        site = Nokogiri::HTML(URI.open(url))
     
         name = site.xpath('//*[@id="main-header"]/div[2]/div/div[1]/h1/small')
         value = site.xpath('//*[@id="main-2"]/div[2]/div/div[1]/div/div[1]/div/div[1]/strong')
@@ -19,7 +20,7 @@ class Stock
         puts dy_value_f
     
         puts "Preço Teto #{dy_value_f / 0.06}"
-    
+        puts url
         puts "\n"
     end
 

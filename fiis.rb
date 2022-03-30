@@ -36,7 +36,8 @@ p "Arguments #{ARGV}"
 
 
 def crawling(ticker)
-    site = Nokogiri::HTML(URI.open("https://statusinvest.com.br/fundos-imobiliarios/#{ticker}"))
+    url = "https://statusinvest.com.br/fundos-imobiliarios/#{ticker}"
+    site = Nokogiri::HTML(URI.open(url))
 
     name = site.xpath('//*[@id="main-header"]/div[2]/div/div[1]/h1/small').text
     value = site.xpath('//*[@id="main-2"]/div[2]/div[1]/div[1]/div/div[1]/strong').text
@@ -50,7 +51,7 @@ def crawling(ticker)
     puts fii.print_max_price
     puts fii.print_earning_p
     puts fii.print_earning_vp
-
+    puts url
     puts "\n"
     fii
 end
