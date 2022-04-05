@@ -3,25 +3,37 @@ require 'open-uri'
 
 class Stock
 
-    def crawling(ticker)
-        url = "https://statusinvest.com.br/acoes/#{ticker}"
-        site = Nokogiri::HTML(URI.open(url))
+    def initialize(ticker, name, value, dy, dy_value, dy_value_f, cnpj, url)
+        @ticker = ticker
+        @name = name
+        @value = value
+        @dy = dy
+        @dy_value = dy_value
+        @dy_value_f = dy_value_f
+        @cnpj = cnpj
+        @url = url
+    end
+
+    def print
+        puts "#{@name}[#{@ticker}] R$ #{@value}"
+        puts "DY #{@dy}%"
+        puts "ÚLTIMOS 12 MESES #{@dy_value} / ação"
     
-        name = site.xpath('//*[@id="main-header"]/div[2]/div/div[1]/h1/small')
-        value = site.xpath('//*[@id="main-2"]/div[2]/div/div[1]/div/div[1]/div/div[1]/strong')
-        dy = site.xpath('//*[@id="main-2"]/div[2]/div/div[1]/div/div[4]/div/div[1]/strong')
-        dy_value = site.xpath('//*[@id="main-2"]/div[2]/div/div[1]/div/div[4]/div/div[2]/div/span[2]')
+        
+        puts @dy_value_f
     
-        puts "#{name.text}[#{ticker}] R$ #{value.text}"
-        puts "DY #{dy.text}%"
-        puts "ÚLTIMOS 12 MESES #{dy_value.text} / ação"
-    
-        dy_value_f = dy_value.text.gsub("R$ ", "").gsub(",", ".").to_f
-        puts dy_value_f
-    
-        puts "Preço Teto #{dy_value_f / 0.06}"
-        puts url
+        puts "Preço Teto #{@dy_value_f / 0.06}"
+        puts @url
         puts "\n"
+
+    end
+
+    def name
+        @name
+    end
+
+    def cnpj
+        @cnpj
     end
 
 end

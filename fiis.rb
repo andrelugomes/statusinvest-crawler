@@ -1,10 +1,8 @@
 #! /usr/bin/env ruby
 
-require 'nokogiri'
-require 'open-uri'
 require 'spreadsheet'
 require 'optparse'
-require './fii.rb'
+require './crawler.rb'
 
 
 options = {}
@@ -34,27 +32,7 @@ end.parse!
 p "Options #{options}"
 p "Arguments #{ARGV}"
 
-
-def crawling(ticker)
-    url = "https://statusinvest.com.br/fundos-imobiliarios/#{ticker}"
-    site = Nokogiri::HTML(URI.open(url))
-
-    name = site.xpath('//*[@id="main-header"]/div[2]/div/div[1]/h1/small').text
-    value = site.xpath('//*[@id="main-2"]/div[2]/div[1]/div[1]/div/div[1]/strong').text
-    dy = site.xpath('//*[@id="main-2"]/div[2]/div[1]/div[4]/div/div[1]/strong').text
-    dy_value = site.xpath('//*[@id="main-2"]/div[2]/div[1]/div[4]/div/div[2]/div/span[2]').text
-    vp_cota = site.xpath('//*[@id="main-2"]/div[2]/div[5]/div/div[1]/div/div[1]/strong').text
-    p_vp = site.xpath('//*[@id="main-2"]/div[2]/div[5]/div/div[2]/div/div[1]/strong').text
-
-    fii = Fii.new(ticker, name, value, dy, dy_value, vp_cota, p_vp)
-    puts fii.print
-    puts fii.print_max_price
-    puts fii.print_earning_p
-    puts fii.print_earning_vp
-    puts url
-    puts "\n"
-    fii
-end
+fii_crawler = Crawler::Fiis.new
 
 if ARGV[0]
     ARGV.each do|ticker|
@@ -64,7 +42,13 @@ end
 
 if options[:file]
     options[:file].each_with_index do |ticker, index| 
-        crawling(ticker)
+      fii = fii_crawler.crawling(ticker)
+      puts fii.print
+      puts fii.print_max_price
+      puts fii.print_earning_p
+      puts fii.print_earning_vp
+      puts fii.url
+      puts "\n"
     end
 end
 
@@ -81,13 +65,13 @@ if options[:export]
 
     File.read("my_fiis.txt").split.each_with_index do |ticker, index| 
         row = sheet1.row(index+1) #line number
-        fii = crawling(ticker)
+        fii = fii_crawler.crawling(ticker)
         row.push fii.ticker, fii.name, fii.value, fii.vp, fii.pvp, fii.dy, fii.dy_value
     end
 
     File.read("radar_fiis.txt").split.each_with_index do |ticker, index| 
         row = sheet2.row(index+1) #line number
-        fii = crawling(ticker)
+        fii = fii_crawler.crawling(ticker)
         row.push fii.ticker, fii.name, fii.value, fii.vp, fii.pvp, fii.dy, fii.dy_value
     end
 

@@ -16,16 +16,17 @@ $ gem install spreadsheet
 ## Usage
 
 ### Stock
-Put all tickers you want line by line in `tickers.txt` file
+Put all tickers you want line by line in `radar_stocks.txt` file
+Put all tickers that you have line by line in `my_stocks.txt` file
 
 ```sh
-$ ruby crawling.rb 
+$ ruby stocks.rb -h
 ```
 
 Or specific tickers by arguments
 
 ```sh
-$ ruby crawling.rb B3SA3 BBAS3
+$ ruby stocks.rb B3SA3 BBAS3
 ```
 
 ### FIIs

@@ -1,6 +1,6 @@
 class Fii
 
-    def initialize(ticker, name, value, dy, dy_value, vp, pvp)
+    def initialize(ticker, name, value, dy, dy_value, vp, pvp, cnpj, url)
         @ticker = ticker
         @name = name
         @value = value
@@ -9,6 +9,8 @@ class Fii
         @vp = vp
         @pvp = pvp
         @dy_value_f = dy_value.gsub("R$ ", "").gsub(",", ".").to_f
+        @cnpj = cnpj
+        @url = url
     end
 
     def print
@@ -58,6 +60,14 @@ class Fii
 
     def pvp
         @pvp
+    end
+
+    def cnpj
+        @cnpj
+    end
+
+    def url
+        @url
     end
 
 end

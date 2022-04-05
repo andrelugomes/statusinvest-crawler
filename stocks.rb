@@ -1,6 +1,7 @@
 #! /usr/bin/env ruby
-require './stock.rb'
+
 require 'optparse'
+require './crawler.rb'
 
 options = {}
 OptionParser.new do |opts|
@@ -19,12 +20,13 @@ end.parse!
 p "Options #{options}"
 p "Arguments #{ARGV}"
 
-stock = Stock.new
+crawler = Crawler::Stocks.new
 
 if ARGV[0]
     ARGV.each do|ticker|
         puts "Crawling from Argument: #{ticker}"
-        stock.crawling(ticker)
+        stock = crawler.crawling(ticker)
+        stock.print
     end
 end
 
@@ -33,6 +35,7 @@ if options[:file]
 
     tickers.each do |ticker| 
         puts "Crawling from tickers.txt: #{ticker}" 
-        stock.crawling(ticker)
+        stock = crawler.crawling(ticker)
+        stock.print
     end
 end
