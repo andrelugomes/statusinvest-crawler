@@ -43,7 +43,7 @@ end
 
 operations = []
 
-CSV.foreach('operacoes.csv', headers: true).with_index do |row, i|
+CSV.foreach('temp/operacoes.csv', headers: true).with_index do |row, i|
     operations << Ticker.new(row[1], row[2], row[3], row[4], row[7])
 end
 

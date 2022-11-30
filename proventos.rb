@@ -48,7 +48,7 @@ end
 
 proventos = []
 
-CSV.foreach('movimentacao-2022-04-26-21-02-16.csv', headers: true).with_index do |row, i|
+CSV.foreach('temp/movimentacao-2022-04-26-21-02-16.csv', headers: true).with_index do |row, i|
     ticker = row[3].split(" ").first
     value = row[7].gsub("R$", "").gsub(",", ".").strip.to_f
     #initialize(name, event, quantity, value, net_value, ir, date)
