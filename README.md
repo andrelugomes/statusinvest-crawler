@@ -2,9 +2,12 @@
 
 ## Install Ruby
 
-```sh
-$ sudo apt-get install -y libssl-dev zlib1g-dev
+https://github.com/asdf-vm/asdf-ruby
+https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 
+```sh
+$ sudo apt-get install autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+ 
 $ asdf install ruby 3.0.2
 $ asdf global ruby 3.0.2
 
